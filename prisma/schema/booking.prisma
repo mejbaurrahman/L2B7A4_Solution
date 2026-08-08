@@ -1,0 +1,43 @@
+model Booking {
+
+  id String @id @default(uuid())
+
+  customerId String
+
+  technicianId String
+
+  serviceId String
+
+  bookingDate DateTime
+
+  status BookingStatus @default(REQUESTED)
+
+  totalAmount Float
+
+  note String?
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  customer User @relation("CustomerBookings", fields: [customerId], references: [id])
+
+  technician User @relation("TechnicianBookings", fields: [technicianId], references: [id])
+
+  service Service @relation(fields: [serviceId], references: [id])
+
+  payment Payment?
+
+  review Review?
+
+  @@index([customerId])
+  @@index([technicianId])
+  @@index([serviceId])
+  @@index([status])
+  @@index([bookingDate])
+  @@index([customerId, status])
+  @@index([technicianId, status])
+  @@index([technicianId, bookingDate])
+
+  @@map("bookings")
+}

@@ -1,5 +1,5 @@
 import express, { type Application } from "express";
-import prisma from "./lib/prisma";
+
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import config from "./config";
