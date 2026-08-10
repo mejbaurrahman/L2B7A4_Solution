@@ -8,7 +8,6 @@ const createToken = (
   const token = jwt.sign(payload, secret, {
     expiresIn,
   } as SignOptions);
-
   return token;
 };
 
