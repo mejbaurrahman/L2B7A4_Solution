@@ -1,3 +1,5 @@
+import { Role } from "../../../prisma/generated/prisma/enums";
+
 export interface ICreateUser {
   name: string;
   email: string;
@@ -6,4 +8,14 @@ export interface ICreateUser {
   image?: string;
   address?: string;
   city?: string;
+  role?: Role;
+  bio?: string;
+  experience?: number;
+  hourlyRate?: number;
+  location?: string;
+}
+
+export interface ILoggedInInterface {
+  email: string;
+  password: string;
 }
