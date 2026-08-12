@@ -1,0 +1,64 @@
+import { prisma } from "../../lib/prisma";
+import { ICreateService } from "./service.interface";
+
+const createService = async (technicianId: string, payload: ICreateService) => {
+  // Verify technician exists and has a technician profile
+  const technician = await prisma.user.findFirst({
+    where: {
+      id: technicianId,
+      role: "TECHNICIAN",
+    },
+    include: {
+      technicianProfile: true,
+    },
+  });
+
+  if (!technician) {
+    throw new Error("Technician not found");
+  }
+
+  if (!technician.technicianProfile) {
+    throw new Error("Technician profile not found");
+  }
+
+  // Verify category exists
+  const category = await prisma.category.findUnique({
+    where: {
+      id: payload.categoryId,
+    },
+  });
+
+  if (!category) {
+    throw new Error("Category not found");
+  }
+
+  const service = await prisma.service.create({
+    data: {
+      technicianId,
+      title: payload.title,
+      description: payload.description,
+      price: payload.price,
+      duration: payload.duration,
+      categoryId: payload.categoryId,
+    },
+    include: {
+      technician: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          role: true,
+          technicianProfile: true,
+        },
+      },
+      category: true,
+    },
+  });
+
+  return service;
+};
+
+export const serviceService = {
+  createService,
+};

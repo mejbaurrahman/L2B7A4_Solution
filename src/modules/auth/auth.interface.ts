@@ -14,6 +14,20 @@ export interface ICreateUser {
   hourlyRate?: number;
   location?: string;
 }
+export interface IUpdateUser {
+  name?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
+  image?: string;
+  address?: string;
+  city?: string;
+  role?: Role;
+  bio?: string;
+  experience?: number;
+  hourlyRate?: number;
+  location?: string;
+}
 
 export interface ILoggedInInterface {
   email: string;

@@ -4,6 +4,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import config from "./config";
 import { authRoute } from "./modules/auth/auth.route";
+import { adminRoute } from "./modules/admin/admin.route";
+import { bookingRoute } from "./modules/booking/booking.route";
+import { serviceRoute } from "./modules/service/service.route";
 
 const app: Application = express();
 
@@ -19,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth/", authRoute);
+app.use("/api/admin/", adminRoute);
+app.use("/api/bookings/", bookingRoute);
+app.use("/api/services/", serviceRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
