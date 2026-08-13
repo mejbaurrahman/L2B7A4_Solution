@@ -18,6 +18,18 @@ const createService = async (req: Request, res: Response) => {
   });
 };
 
+const getAllServices = async (req: Request, res: Response) => {
+  const query = req.query;
+  const result = await serviceService.getAllServices(query);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Services retrieved successfully",
+    data: result,
+  });
+};
+
 export const serviceController = {
   createService,
+  getAllServices,
 };

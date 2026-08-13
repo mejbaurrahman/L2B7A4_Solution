@@ -21,7 +21,6 @@ const createService = async (technicianId: string, payload: ICreateService) => {
     throw new Error("Technician profile not found");
   }
 
-  // Verify category exists
   const category = await prisma.category.findUnique({
     where: {
       id: payload.categoryId,
@@ -59,6 +58,57 @@ const createService = async (technicianId: string, payload: ICreateService) => {
   return service;
 };
 
+const getAllServices = async (query: any) => {
+  const { type, location, rating } = query;
+  const services = await prisma.service.findMany({
+    where: {
+      ...(type && {
+        categroy: {
+          name: {
+            contains: type,
+            mode: "insensitive",
+          },
+        },
+      }),
+      ...(location && {
+        technician: {
+          technicianProfile: {
+            location: {
+              contains: location,
+              mode: "insensitive",
+            },
+          },
+        },
+      }),
+      ...(rating && {
+        technician: {
+          technicianProfile: {
+            averageRating: {
+              gte: parseFloat(rating),
+            },
+          },
+        },
+      }),
+    },
+    include: {
+      technician: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          role: true,
+          technicianProfile: true,
+        },
+      },
+      category: true,
+    },
+  });
+
+  return services;
+};
+
 export const serviceService = {
   createService,
+  getAllServices,
 };
