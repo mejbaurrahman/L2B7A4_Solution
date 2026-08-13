@@ -6,7 +6,11 @@ const getAllTechniciansFromDB = async () => {
       role: "TECHNICIAN",
     },
     include: {
-      technicianProfile: true,
+      technicianProfile: {
+        include: {
+          availability: true,
+        },
+      },
     },
     omit: {
       password: true,
@@ -14,13 +18,19 @@ const getAllTechniciansFromDB = async () => {
   });
   return technicians;
 };
+
 const getTechnicianByIdFromDB = async (id: string) => {
   const technician = await prisma.user.findUnique({
     where: {
       id,
+      role: "TECHNICIAN",
     },
     include: {
-      technicianProfile: true,
+      technicianProfile: {
+        include: {
+          availability: true,
+        },
+      },
     },
     omit: {
       password: true,
@@ -28,7 +38,8 @@ const getTechnicianByIdFromDB = async (id: string) => {
   });
   return technician;
 };
-export const technicianService = {
+
+export const techniciansService = {
   getAllTechniciansFromDB,
   getTechnicianByIdFromDB,
 };

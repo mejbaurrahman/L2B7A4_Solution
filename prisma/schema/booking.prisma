@@ -14,7 +14,7 @@ model Booking {
 
   totalAmount Float
 
-     note String?
+  note String?
 
   createdAt DateTime @default(now())
 

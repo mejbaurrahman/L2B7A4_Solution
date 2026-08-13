@@ -13,9 +13,9 @@ model TechnicianProfile {
 
   location      String
 
-  averageRating Float    @default(0)
-
-  isAvailable   Boolean  @default(true)
+  availability technicianAvailability[]
+  
+  rating Float    @default(0)
 
   createdAt     DateTime @default(now())
 
@@ -23,10 +23,9 @@ model TechnicianProfile {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  @@index([location])
+ 
   @@index([hourlyRate])
-  @@index([averageRating])
-  @@index([isAvailable])
-  @@index([location, isAvailable])
+  @@index([rating])
+  @@index([location])
   @@map("technician_profiles")
 }

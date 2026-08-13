@@ -3,10 +3,10 @@ import { sendResponse } from "../../utils/sendResponse";
 import { catchAsync } from "../../utils/catchAsync";
 import { Request, Response } from "express";
 import httpStatus from "http-status";
-import { technicianService } from "./technicians.service";
+import { techniciansService } from "./technicians.service";
 
 const getAllTechnicians = catchAsync(async (req: Request, res: Response) => {
-  const technicians = await technicianService.getAllTechniciansFromDB();
+  const technicians = await techniciansService.getAllTechniciansFromDB();
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -17,7 +17,7 @@ const getAllTechnicians = catchAsync(async (req: Request, res: Response) => {
 
 const getTechnicianById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const technician = await technicianService.getTechnicianByIdFromDB(
+  const technician = await techniciansService.getTechnicianByIdFromDB(
     id as string,
   );
   sendResponse(res, {
@@ -27,7 +27,7 @@ const getTechnicianById = catchAsync(async (req: Request, res: Response) => {
     data: technician,
   });
 });
-export const technicianController = {
+export const techniciansController = {
   getAllTechnicians,
   getTechnicianById,
 };

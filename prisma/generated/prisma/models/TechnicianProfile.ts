@@ -29,13 +29,13 @@ export type AggregateTechnicianProfile = {
 export type TechnicianProfileAvgAggregateOutputType = {
   experience: number | null
   hourlyRate: number | null
-  averageRating: number | null
+  rating: number | null
 }
 
 export type TechnicianProfileSumAggregateOutputType = {
   experience: number | null
   hourlyRate: number | null
-  averageRating: number | null
+  rating: number | null
 }
 
 export type TechnicianProfileMinAggregateOutputType = {
@@ -45,8 +45,7 @@ export type TechnicianProfileMinAggregateOutputType = {
   experience: number | null
   hourlyRate: number | null
   location: string | null
-  averageRating: number | null
-  isAvailable: boolean | null
+  rating: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -58,8 +57,7 @@ export type TechnicianProfileMaxAggregateOutputType = {
   experience: number | null
   hourlyRate: number | null
   location: string | null
-  averageRating: number | null
-  isAvailable: boolean | null
+  rating: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -71,8 +69,7 @@ export type TechnicianProfileCountAggregateOutputType = {
   experience: number
   hourlyRate: number
   location: number
-  averageRating: number
-  isAvailable: number
+  rating: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -82,13 +79,13 @@ export type TechnicianProfileCountAggregateOutputType = {
 export type TechnicianProfileAvgAggregateInputType = {
   experience?: true
   hourlyRate?: true
-  averageRating?: true
+  rating?: true
 }
 
 export type TechnicianProfileSumAggregateInputType = {
   experience?: true
   hourlyRate?: true
-  averageRating?: true
+  rating?: true
 }
 
 export type TechnicianProfileMinAggregateInputType = {
@@ -98,8 +95,7 @@ export type TechnicianProfileMinAggregateInputType = {
   experience?: true
   hourlyRate?: true
   location?: true
-  averageRating?: true
-  isAvailable?: true
+  rating?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -111,8 +107,7 @@ export type TechnicianProfileMaxAggregateInputType = {
   experience?: true
   hourlyRate?: true
   location?: true
-  averageRating?: true
-  isAvailable?: true
+  rating?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,8 +119,7 @@ export type TechnicianProfileCountAggregateInputType = {
   experience?: true
   hourlyRate?: true
   location?: true
-  averageRating?: true
-  isAvailable?: true
+  rating?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -224,8 +218,7 @@ export type TechnicianProfileGroupByOutputType = {
   experience: number
   hourlyRate: number
   location: string
-  averageRating: number
-  isAvailable: boolean
+  rating: number
   createdAt: Date
   updatedAt: Date
   _count: TechnicianProfileCountAggregateOutputType | null
@@ -260,10 +253,10 @@ export type TechnicianProfileWhereInput = {
   experience?: Prisma.IntFilter<"TechnicianProfile"> | number
   hourlyRate?: Prisma.FloatFilter<"TechnicianProfile"> | number
   location?: Prisma.StringFilter<"TechnicianProfile"> | string
-  averageRating?: Prisma.FloatFilter<"TechnicianProfile"> | number
-  isAvailable?: Prisma.BoolFilter<"TechnicianProfile"> | boolean
+  rating?: Prisma.FloatFilter<"TechnicianProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"TechnicianProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TechnicianProfile"> | Date | string
+  availability?: Prisma.TechnicianAvailabilityListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -274,10 +267,10 @@ export type TechnicianProfileOrderByWithRelationInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  availability?: Prisma.technicianAvailabilityOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -291,10 +284,10 @@ export type TechnicianProfileWhereUniqueInput = Prisma.AtLeast<{
   experience?: Prisma.IntFilter<"TechnicianProfile"> | number
   hourlyRate?: Prisma.FloatFilter<"TechnicianProfile"> | number
   location?: Prisma.StringFilter<"TechnicianProfile"> | string
-  averageRating?: Prisma.FloatFilter<"TechnicianProfile"> | number
-  isAvailable?: Prisma.BoolFilter<"TechnicianProfile"> | boolean
+  rating?: Prisma.FloatFilter<"TechnicianProfile"> | number
   createdAt?: Prisma.DateTimeFilter<"TechnicianProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TechnicianProfile"> | Date | string
+  availability?: Prisma.TechnicianAvailabilityListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
@@ -305,8 +298,7 @@ export type TechnicianProfileOrderByWithAggregationInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TechnicianProfileCountOrderByAggregateInput
@@ -326,8 +318,7 @@ export type TechnicianProfileScalarWhereWithAggregatesInput = {
   experience?: Prisma.IntWithAggregatesFilter<"TechnicianProfile"> | number
   hourlyRate?: Prisma.FloatWithAggregatesFilter<"TechnicianProfile"> | number
   location?: Prisma.StringWithAggregatesFilter<"TechnicianProfile"> | string
-  averageRating?: Prisma.FloatWithAggregatesFilter<"TechnicianProfile"> | number
-  isAvailable?: Prisma.BoolWithAggregatesFilter<"TechnicianProfile"> | boolean
+  rating?: Prisma.FloatWithAggregatesFilter<"TechnicianProfile"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TechnicianProfile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TechnicianProfile"> | Date | string
 }
@@ -338,10 +329,10 @@ export type TechnicianProfileCreateInput = {
   experience: number
   hourlyRate: number
   location: string
-  averageRating?: number
-  isAvailable?: boolean
+  rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  availability?: Prisma.technicianAvailabilityCreateNestedManyWithoutTechnicianInput
   user: Prisma.UserCreateNestedOneWithoutTechnicianProfileInput
 }
 
@@ -352,10 +343,10 @@ export type TechnicianProfileUncheckedCreateInput = {
   experience: number
   hourlyRate: number
   location: string
-  averageRating?: number
-  isAvailable?: boolean
+  rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  availability?: Prisma.technicianAvailabilityUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type TechnicianProfileUpdateInput = {
@@ -364,10 +355,10 @@ export type TechnicianProfileUpdateInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availability?: Prisma.technicianAvailabilityUpdateManyWithoutTechnicianNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTechnicianProfileNestedInput
 }
 
@@ -378,10 +369,10 @@ export type TechnicianProfileUncheckedUpdateInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availability?: Prisma.technicianAvailabilityUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
 export type TechnicianProfileCreateManyInput = {
@@ -391,8 +382,7 @@ export type TechnicianProfileCreateManyInput = {
   experience: number
   hourlyRate: number
   location: string
-  averageRating?: number
-  isAvailable?: boolean
+  rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -403,8 +393,7 @@ export type TechnicianProfileUpdateManyMutationInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -416,10 +405,14 @@ export type TechnicianProfileUncheckedUpdateManyInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TechnicianProfileScalarRelationFilter = {
+  is?: Prisma.TechnicianProfileWhereInput
+  isNot?: Prisma.TechnicianProfileWhereInput
 }
 
 export type TechnicianProfileCountOrderByAggregateInput = {
@@ -429,8 +422,7 @@ export type TechnicianProfileCountOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -438,7 +430,7 @@ export type TechnicianProfileCountOrderByAggregateInput = {
 export type TechnicianProfileAvgOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type TechnicianProfileMaxOrderByAggregateInput = {
@@ -448,8 +440,7 @@ export type TechnicianProfileMaxOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -461,8 +452,7 @@ export type TechnicianProfileMinOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
-  isAvailable?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -470,7 +460,7 @@ export type TechnicianProfileMinOrderByAggregateInput = {
 export type TechnicianProfileSumOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
-  averageRating?: Prisma.SortOrder
+  rating?: Prisma.SortOrder
 }
 
 export type TechnicianProfileNullableScalarRelationFilter = {
@@ -478,8 +468,18 @@ export type TechnicianProfileNullableScalarRelationFilter = {
   isNot?: Prisma.TechnicianProfileWhereInput | null
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type TechnicianProfileCreateNestedOneWithoutAvailabilityInput = {
+  create?: Prisma.XOR<Prisma.TechnicianProfileCreateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedCreateWithoutAvailabilityInput>
+  connectOrCreate?: Prisma.TechnicianProfileCreateOrConnectWithoutAvailabilityInput
+  connect?: Prisma.TechnicianProfileWhereUniqueInput
+}
+
+export type TechnicianProfileUpdateOneRequiredWithoutAvailabilityNestedInput = {
+  create?: Prisma.XOR<Prisma.TechnicianProfileCreateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedCreateWithoutAvailabilityInput>
+  connectOrCreate?: Prisma.TechnicianProfileCreateOrConnectWithoutAvailabilityInput
+  upsert?: Prisma.TechnicianProfileUpsertWithoutAvailabilityInput
+  connect?: Prisma.TechnicianProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TechnicianProfileUpdateToOneWithWhereWithoutAvailabilityInput, Prisma.TechnicianProfileUpdateWithoutAvailabilityInput>, Prisma.TechnicianProfileUncheckedUpdateWithoutAvailabilityInput>
 }
 
 export type TechnicianProfileCreateNestedOneWithoutUserInput = {
@@ -514,16 +514,80 @@ export type TechnicianProfileUncheckedUpdateOneWithoutUserNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TechnicianProfileUpdateToOneWithWhereWithoutUserInput, Prisma.TechnicianProfileUpdateWithoutUserInput>, Prisma.TechnicianProfileUncheckedUpdateWithoutUserInput>
 }
 
+export type TechnicianProfileCreateWithoutAvailabilityInput = {
+  id?: string
+  bio?: string | null
+  experience: number
+  hourlyRate: number
+  location: string
+  rating?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutTechnicianProfileInput
+}
+
+export type TechnicianProfileUncheckedCreateWithoutAvailabilityInput = {
+  id?: string
+  userId: string
+  bio?: string | null
+  experience: number
+  hourlyRate: number
+  location: string
+  rating?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TechnicianProfileCreateOrConnectWithoutAvailabilityInput = {
+  where: Prisma.TechnicianProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.TechnicianProfileCreateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedCreateWithoutAvailabilityInput>
+}
+
+export type TechnicianProfileUpsertWithoutAvailabilityInput = {
+  update: Prisma.XOR<Prisma.TechnicianProfileUpdateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedUpdateWithoutAvailabilityInput>
+  create: Prisma.XOR<Prisma.TechnicianProfileCreateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedCreateWithoutAvailabilityInput>
+  where?: Prisma.TechnicianProfileWhereInput
+}
+
+export type TechnicianProfileUpdateToOneWithWhereWithoutAvailabilityInput = {
+  where?: Prisma.TechnicianProfileWhereInput
+  data: Prisma.XOR<Prisma.TechnicianProfileUpdateWithoutAvailabilityInput, Prisma.TechnicianProfileUncheckedUpdateWithoutAvailabilityInput>
+}
+
+export type TechnicianProfileUpdateWithoutAvailabilityInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutTechnicianProfileNestedInput
+}
+
+export type TechnicianProfileUncheckedUpdateWithoutAvailabilityInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type TechnicianProfileCreateWithoutUserInput = {
   id?: string
   bio?: string | null
   experience: number
   hourlyRate: number
   location: string
-  averageRating?: number
-  isAvailable?: boolean
+  rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  availability?: Prisma.technicianAvailabilityCreateNestedManyWithoutTechnicianInput
 }
 
 export type TechnicianProfileUncheckedCreateWithoutUserInput = {
@@ -532,10 +596,10 @@ export type TechnicianProfileUncheckedCreateWithoutUserInput = {
   experience: number
   hourlyRate: number
   location: string
-  averageRating?: number
-  isAvailable?: boolean
+  rating?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  availability?: Prisma.technicianAvailabilityUncheckedCreateNestedManyWithoutTechnicianInput
 }
 
 export type TechnicianProfileCreateOrConnectWithoutUserInput = {
@@ -560,10 +624,10 @@ export type TechnicianProfileUpdateWithoutUserInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availability?: Prisma.technicianAvailabilityUpdateManyWithoutTechnicianNestedInput
 }
 
 export type TechnicianProfileUncheckedUpdateWithoutUserInput = {
@@ -572,12 +636,41 @@ export type TechnicianProfileUncheckedUpdateWithoutUserInput = {
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  averageRating?: Prisma.FloatFieldUpdateOperationsInput | number
-  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  availability?: Prisma.technicianAvailabilityUncheckedUpdateManyWithoutTechnicianNestedInput
 }
 
+
+/**
+ * Count Type TechnicianProfileCountOutputType
+ */
+
+export type TechnicianProfileCountOutputType = {
+  availability: number
+}
+
+export type TechnicianProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  availability?: boolean | TechnicianProfileCountOutputTypeCountAvailabilityArgs
+}
+
+/**
+ * TechnicianProfileCountOutputType without action
+ */
+export type TechnicianProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TechnicianProfileCountOutputType
+   */
+  select?: Prisma.TechnicianProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TechnicianProfileCountOutputType without action
+ */
+export type TechnicianProfileCountOutputTypeCountAvailabilityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.technicianAvailabilityWhereInput
+}
 
 
 export type TechnicianProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -587,11 +680,12 @@ export type TechnicianProfileSelect<ExtArgs extends runtime.Types.Extensions.Int
   experience?: boolean
   hourlyRate?: boolean
   location?: boolean
-  averageRating?: boolean
-  isAvailable?: boolean
+  rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  availability?: boolean | Prisma.TechnicianProfile$availabilityArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.TechnicianProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["technicianProfile"]>
 
 export type TechnicianProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -601,8 +695,7 @@ export type TechnicianProfileSelectCreateManyAndReturn<ExtArgs extends runtime.T
   experience?: boolean
   hourlyRate?: boolean
   location?: boolean
-  averageRating?: boolean
-  isAvailable?: boolean
+  rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -615,8 +708,7 @@ export type TechnicianProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   experience?: boolean
   hourlyRate?: boolean
   location?: boolean
-  averageRating?: boolean
-  isAvailable?: boolean
+  rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -629,15 +721,16 @@ export type TechnicianProfileSelectScalar = {
   experience?: boolean
   hourlyRate?: boolean
   location?: boolean
-  averageRating?: boolean
-  isAvailable?: boolean
+  rating?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TechnicianProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "experience" | "hourlyRate" | "location" | "averageRating" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["technicianProfile"]>
+export type TechnicianProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "bio" | "experience" | "hourlyRate" | "location" | "rating" | "createdAt" | "updatedAt", ExtArgs["result"]["technicianProfile"]>
 export type TechnicianProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  availability?: boolean | Prisma.TechnicianProfile$availabilityArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.TechnicianProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TechnicianProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -649,6 +742,7 @@ export type TechnicianProfileIncludeUpdateManyAndReturn<ExtArgs extends runtime.
 export type $TechnicianProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TechnicianProfile"
   objects: {
+    availability: Prisma.$technicianAvailabilityPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -658,8 +752,7 @@ export type $TechnicianProfilePayload<ExtArgs extends runtime.Types.Extensions.I
     experience: number
     hourlyRate: number
     location: string
-    averageRating: number
-    isAvailable: boolean
+    rating: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["technicianProfile"]>
@@ -1056,6 +1149,7 @@ readonly fields: TechnicianProfileFieldRefs;
  */
 export interface Prisma__TechnicianProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  availability<T extends Prisma.TechnicianProfile$availabilityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TechnicianProfile$availabilityArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$technicianAvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1092,8 +1186,7 @@ export interface TechnicianProfileFieldRefs {
   readonly experience: Prisma.FieldRef<"TechnicianProfile", 'Int'>
   readonly hourlyRate: Prisma.FieldRef<"TechnicianProfile", 'Float'>
   readonly location: Prisma.FieldRef<"TechnicianProfile", 'String'>
-  readonly averageRating: Prisma.FieldRef<"TechnicianProfile", 'Float'>
-  readonly isAvailable: Prisma.FieldRef<"TechnicianProfile", 'Boolean'>
+  readonly rating: Prisma.FieldRef<"TechnicianProfile", 'Float'>
   readonly createdAt: Prisma.FieldRef<"TechnicianProfile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TechnicianProfile", 'DateTime'>
 }
@@ -1494,6 +1587,30 @@ export type TechnicianProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many TechnicianProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * TechnicianProfile.availability
+ */
+export type TechnicianProfile$availabilityArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the technicianAvailability
+   */
+  select?: Prisma.technicianAvailabilitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the technicianAvailability
+   */
+  omit?: Prisma.technicianAvailabilityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.technicianAvailabilityInclude<ExtArgs> | null
+  where?: Prisma.technicianAvailabilityWhereInput
+  orderBy?: Prisma.technicianAvailabilityOrderByWithRelationInput | Prisma.technicianAvailabilityOrderByWithRelationInput[]
+  cursor?: Prisma.technicianAvailabilityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TechnicianAvailabilityScalarFieldEnum | Prisma.TechnicianAvailabilityScalarFieldEnum[]
 }
 
 /**

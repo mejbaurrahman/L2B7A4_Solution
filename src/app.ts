@@ -8,7 +8,8 @@ import { adminRoute } from "./modules/admin/admin.route";
 import { bookingRoute } from "./modules/booking/booking.route";
 import { serviceRoute } from "./modules/service/service.route";
 import { categoryRoute } from "./modules/category/category.route";
-import { technicianRoute } from "./modules/technicians/technicians.route";
+import { techniciansRoute } from "./modules/technicians/technicians.route";
+import { technicianRoute } from "./modules/technician/technician.route";
 
 const app: Application = express();
 
@@ -28,7 +29,8 @@ app.use("/api/admin/", adminRoute);
 app.use("/api/bookings/", bookingRoute);
 app.use("/api/services/", serviceRoute);
 app.use("/api/categories/", categoryRoute);
-app.use("/api/technicians/", technicianRoute);
+app.use("/api/technicians/", techniciansRoute);
+app.use("/api/technician/", technicianRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is running");

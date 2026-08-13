@@ -402,6 +402,7 @@ export const ModelName = {
   Payment: 'Payment',
   Review: 'Review',
   Service: 'Service',
+  technicianAvailability: 'technicianAvailability',
   TechnicianProfile: 'TechnicianProfile',
   User: 'User'
 } as const
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "booking" | "category" | "payment" | "review" | "service" | "technicianProfile" | "user"
+    modelProps: "booking" | "category" | "payment" | "review" | "service" | "technicianAvailability" | "technicianProfile" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -793,6 +794,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    technicianAvailability: {
+      payload: Prisma.$technicianAvailabilityPayload<ExtArgs>
+      fields: Prisma.technicianAvailabilityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.technicianAvailabilityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.technicianAvailabilityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        findFirst: {
+          args: Prisma.technicianAvailabilityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.technicianAvailabilityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        findMany: {
+          args: Prisma.technicianAvailabilityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>[]
+        }
+        create: {
+          args: Prisma.technicianAvailabilityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        createMany: {
+          args: Prisma.technicianAvailabilityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.technicianAvailabilityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>[]
+        }
+        delete: {
+          args: Prisma.technicianAvailabilityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        update: {
+          args: Prisma.technicianAvailabilityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        deleteMany: {
+          args: Prisma.technicianAvailabilityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.technicianAvailabilityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.technicianAvailabilityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>[]
+        }
+        upsert: {
+          args: Prisma.technicianAvailabilityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$technicianAvailabilityPayload>
+        }
+        aggregate: {
+          args: Prisma.TechnicianAvailabilityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTechnicianAvailability>
+        }
+        groupBy: {
+          args: Prisma.technicianAvailabilityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TechnicianAvailabilityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.technicianAvailabilityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TechnicianAvailabilityCountAggregateOutputType> | number
+        }
+      }
+    }
     TechnicianProfile: {
       payload: Prisma.$TechnicianProfilePayload<ExtArgs>
       fields: Prisma.TechnicianProfileFieldRefs
@@ -1052,6 +1127,17 @@ export const ServiceScalarFieldEnum = {
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
+export const TechnicianAvailabilityScalarFieldEnum = {
+  id: 'id',
+  technicianId: 'technicianId',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isAvailable: 'isAvailable'
+} as const
+
+export type TechnicianAvailabilityScalarFieldEnum = (typeof TechnicianAvailabilityScalarFieldEnum)[keyof typeof TechnicianAvailabilityScalarFieldEnum]
+
+
 export const TechnicianProfileScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1059,8 +1145,7 @@ export const TechnicianProfileScalarFieldEnum = {
   experience: 'experience',
   hourlyRate: 'hourlyRate',
   location: 'location',
-  averageRating: 'averageRating',
-  isAvailable: 'isAvailable',
+  rating: 'rating',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1404,6 +1489,7 @@ export type GlobalOmitConfig = {
   payment?: Prisma.PaymentOmit
   review?: Prisma.ReviewOmit
   service?: Prisma.ServiceOmit
+  technicianAvailability?: Prisma.technicianAvailabilityOmit
   technicianProfile?: Prisma.TechnicianProfileOmit
   user?: Prisma.UserOmit
 }

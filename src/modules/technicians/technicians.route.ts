@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { technicianController } from "./technicians.controller";
+import { techniciansController } from "./technicians.controller";
 
 const router = Router();
 
-router.get("/", technicianController.getAllTechnicians);
-router.get("/:id", technicianController.getTechnicianById);
+router.get("/", techniciansController.getAllTechnicians);
+router.get("/:id", techniciansController.getTechnicianById);
 
-export const technicianRoute = router;
+export const techniciansRoute = router;
