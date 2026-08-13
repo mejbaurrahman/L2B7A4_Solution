@@ -3,6 +3,9 @@ import { ICreateCategory } from "./admin.interface";
 
 const getAllUsers = async () => {
   return await prisma.user.findMany({
+    omit: {
+      password: true,
+    },
     orderBy: {
       createdAt: "desc",
     },
@@ -16,6 +19,9 @@ const updateUserStatus = async (id: string, status: any) => {
     },
     data: {
       status,
+    },
+    omit: {
+      password: true,
     },
   });
 };
