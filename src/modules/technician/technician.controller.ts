@@ -19,6 +19,19 @@ const updateProfile = catchAsync(async (req: Request, res: Response) => {
     data: updatedProfile,
   });
 });
+
+const getBookings = catchAsync(async (req: Request, res: Response) => {
+  const technicianId = req.user?.id;
+  const bookings = await technicianService.getTechnicianBookings(
+    technicianId as string,
+  );
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: bookings,
+  });
+});
 const updateAvailability = catchAsync(async (req: Request, res: Response) => {
   const availability = req.body;
   const technicianId = req.user?.id;
@@ -39,4 +52,5 @@ const updateAvailability = catchAsync(async (req: Request, res: Response) => {
 export const technicianController = {
   updateProfile,
   updateAvailability,
+  getBookings,
 };

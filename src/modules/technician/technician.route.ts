@@ -15,4 +15,9 @@ router.put(
   auth(Role.TECHNICIAN),
   technicianController.updateProfile,
 );
+router.get(
+  "/bookings",
+  auth(Role.TECHNICIAN),
+  technicianController.getBookings,
+);
 export const technicianRoute = router;

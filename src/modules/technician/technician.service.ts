@@ -76,7 +76,30 @@ const updateTechnicianProfile = async (
   return updatedProfile;
 };
 
+const getTechnicianBookings = async (technicianId: string) => {
+  const technician = await prisma.user.findUnique({
+    where: {
+      id: technicianId,
+      role: "TECHNICIAN",
+    },
+    include: {
+      technicianProfile: true,
+    },
+  });
+
+  if (!technician?.technicianProfile) {
+    throw new Error("Technician profile not found");
+  }
+
+  const bookings = await prisma.booking.findMany({
+    where: {
+      technicianId,
+    },
+  });
+  return bookings;
+};
 export const technicianService = {
   updateTechnicianAvailability,
   updateTechnicianProfile,
+  getTechnicianBookings,
 };
