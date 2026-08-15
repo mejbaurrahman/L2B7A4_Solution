@@ -4,6 +4,7 @@ import httpStatus from "http-status";
 import { sendResponse } from "../../utils/sendResponse";
 import { technicianService } from "./technician.service";
 import { ITechnicianProfileUpdate } from "./technician.interface";
+import { BookingStatus } from "../../../prisma/generated/prisma/enums";
 
 const updateProfile = catchAsync(async (req: Request, res: Response) => {
   const profileData: ITechnicianProfileUpdate = req.body;
@@ -49,8 +50,24 @@ const updateAvailability = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateBookingStatus = catchAsync(async (req: Request, res: Response) => {
+  const bookingId = req.params.id;
+  const { status } = req.body;
+  const updatedBooking = await technicianService.updateTechnicianBookingStatus(
+    bookingId as string,
+    status as BookingStatus,
+  );
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Booking status updated successfully",
+    data: updatedBooking,
+  });
+});
 export const technicianController = {
   updateProfile,
   updateAvailability,
   getBookings,
+  updateBookingStatus,
 };

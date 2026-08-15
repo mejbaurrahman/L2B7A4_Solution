@@ -1,3 +1,4 @@
+import { BookingStatus } from "../../../prisma/generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { ITechnicianProfileUpdate } from "./technician.interface";
 
@@ -98,8 +99,34 @@ const getTechnicianBookings = async (technicianId: string) => {
   });
   return bookings;
 };
+
+const updateTechnicianBookingStatus = async (
+  bookingId: string,
+  status: BookingStatus,
+) => {
+  console.log("Updating booking status:", bookingId, status);
+  const booking = await prisma.booking.findUnique({
+    where: {
+      id: bookingId,
+    },
+  });
+  if (!booking) {
+    throw new Error("Booking not found");
+  }
+  const updatedBooking = await prisma.booking.update({
+    where: {
+      id: bookingId,
+    },
+    data: {
+      status,
+    },
+  });
+  return updatedBooking;
+};
+
 export const technicianService = {
   updateTechnicianAvailability,
   updateTechnicianProfile,
   getTechnicianBookings,
+  updateTechnicianBookingStatus,
 };
