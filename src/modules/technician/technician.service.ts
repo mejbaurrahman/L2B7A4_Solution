@@ -1,4 +1,5 @@
 import { prisma } from "../../lib/prisma";
+import { ITechnicianProfileUpdate } from "./technician.interface";
 
 const updateTechnicianAvailability = async (
   technicianId: string,
@@ -18,7 +19,6 @@ const updateTechnicianAvailability = async (
     throw new Error("Technician profile not found");
   }
 
-  console.log(technician.id, technician.technicianProfile.id);
   const profileId = technician.technicianProfile.id;
 
   const start = new Date(availability.startTime);
@@ -46,6 +46,37 @@ const updateTechnicianAvailability = async (
   return newAvailability;
 };
 
+const updateTechnicianProfile = async (
+  technicianId: string,
+  profileData: ITechnicianProfileUpdate,
+) => {
+  const technician = await prisma.user.findUnique({
+    where: {
+      id: technicianId,
+      role: "TECHNICIAN",
+    },
+    include: {
+      technicianProfile: true,
+    },
+  });
+
+  if (!technician?.technicianProfile) {
+    throw new Error("Technician profile not found");
+  }
+
+  const profileId = technician.technicianProfile.id;
+
+  const updatedProfile = await prisma.technicianProfile.update({
+    where: {
+      id: profileId,
+    },
+    data: profileData,
+  });
+
+  return updatedProfile;
+};
+
 export const technicianService = {
   updateTechnicianAvailability,
+  updateTechnicianProfile,
 };
