@@ -10,6 +10,7 @@ import { serviceRoute } from "./modules/service/service.route";
 import { categoryRoute } from "./modules/category/category.route";
 import { techniciansRoute } from "./modules/technicians/technicians.route";
 import { technicianRoute } from "./modules/technician/technician.route";
+import { reviewRoute } from "./modules/reviews/review.route";
 
 const app: Application = express();
 
@@ -31,6 +32,7 @@ app.use("/api/services/", serviceRoute);
 app.use("/api/categories/", categoryRoute);
 app.use("/api/technicians/", techniciansRoute);
 app.use("/api/technician/", technicianRoute);
+app.use("/api/reviews/", reviewRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
