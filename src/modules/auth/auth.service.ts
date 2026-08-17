@@ -88,14 +88,6 @@ const registerIntoDB = async (payload: ICreateUser) => {
 const loginUser = async (payload: ILoggedInInterface) => {
   const { email, password } = payload;
 
-  // const user = await prisma.user.findUnique({
-  //     where : {email}
-  // })
-
-  // if(!user){
-  //     throw new Error("User not found");
-  // }
-
   const user = await prisma.user.findUniqueOrThrow({
     where: { email },
   });
