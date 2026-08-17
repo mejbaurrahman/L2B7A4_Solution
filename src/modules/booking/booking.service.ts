@@ -2,18 +2,65 @@ import { prisma } from "../../lib/prisma";
 import { ICreateBooking } from "./booking.interface";
 
 const createBooking = async (customerId: string, payload: ICreateBooking) => {
-  const checkAvailability = await prisma.technicianAvailability.findUnique({
+  const checkService = await prisma.service.findUnique({
+    where: {
+      id: payload.serviceId,
+    },
+    include: {
+      technician: true,
+    },
+  });
+  if (!checkService) {
+    throw new Error("Selected service does not exist");
+  }
+  if (checkService.technician?.id !== payload.technicianId) {
+    throw new Error(
+      "Selected service does not belong to the selected technician",
+    );
+  }
+
+  const technicianProfile = await prisma.user.findUnique({
+    where: {
+      id: payload.technicianId,
+    },
+    include: {
+      technicianProfile: true,
+    },
+  });
+
+  const technicianId = technicianProfile?.technicianProfile?.id;
+  if (!technicianId) {
+    throw new Error("Technician profile not found");
+  }
+
+  const technicianAvailability = await prisma.technicianProfile.findUnique({
+    where: {
+      id: technicianId,
+    },
+    include: {
+      availability: true,
+    },
+  });
+
+  if (
+    !technicianAvailability?.availability.some(
+      (availability) => availability.id === payload.availabilityId,
+    )
+  ) {
+    throw new Error(
+      "Selected availability does not belong to the selected technician",
+    );
+  }
+
+  const availability = await prisma.technicianAvailability.findUnique({
     where: {
       id: payload.availabilityId,
     },
   });
-  if (!checkAvailability) {
-    throw new Error("Selected availability slot does not exist");
-  }
-  if (!checkAvailability?.isAvailable) {
-    throw new Error("Selected availability slot is not available");
-  }
 
+  if (!availability?.isAvailable) {
+    throw new Error("Selected availability is not available");
+  }
   await prisma.technicianAvailability.update({
     where: {
       id: payload.availabilityId,

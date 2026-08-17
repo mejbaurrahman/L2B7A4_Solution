@@ -128,8 +128,6 @@ const loginUser = async (payload: ILoggedInInterface) => {
     config.jwt_refresh_secret,
     config.jwt_refresh_expires_in as SignOptions,
   );
-
-  console.log(accessToken, refreshToken);
   return {
     accessToken,
     refreshToken,
