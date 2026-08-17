@@ -13,8 +13,9 @@ model Booking {
   status BookingStatus @default(REQUESTED)
 
   totalAmount Float
-
+  availabilityId String @unique
   note String?
+
 
   createdAt DateTime @default(now())
 
@@ -26,6 +27,7 @@ model Booking {
 
   service Service @relation(fields: [serviceId], references: [id])
 
+  availability technicianAvailability @relation( fields: [availabilityId],references: [id] )
   payment Payment?
 
   review Review?

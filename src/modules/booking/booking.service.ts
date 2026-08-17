@@ -2,6 +2,26 @@ import { prisma } from "../../lib/prisma";
 import { ICreateBooking } from "./booking.interface";
 
 const createBooking = async (customerId: string, payload: ICreateBooking) => {
+  const checkAvailability = await prisma.technicianAvailability.findUnique({
+    where: {
+      id: payload.availabilityId,
+    },
+  });
+  if (!checkAvailability) {
+    throw new Error("Selected availability slot does not exist");
+  }
+  if (!checkAvailability?.isAvailable) {
+    throw new Error("Selected availability slot is not available");
+  }
+
+  await prisma.technicianAvailability.update({
+    where: {
+      id: payload.availabilityId,
+    },
+    data: {
+      isAvailable: false,
+    },
+  });
   const booking = await prisma.booking.create({
     data: {
       customerId,
@@ -9,6 +29,7 @@ const createBooking = async (customerId: string, payload: ICreateBooking) => {
       serviceId: payload.serviceId,
       bookingDate: payload.bookingDate,
       totalAmount: payload.totalAmount,
+      availabilityId: payload.availabilityId,
 
       ...(payload.note && {
         note: payload.note,

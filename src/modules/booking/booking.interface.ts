@@ -4,6 +4,7 @@ export interface ICreateBooking {
   technicianId: string;
   serviceId: string;
   bookingDate: Date;
+  availabilityId: string;
   totalAmount: number;
   note?: string;
 }
@@ -14,6 +15,7 @@ export interface IBooking {
   technicianId: string;
   serviceId: string;
   bookingDate: Date;
+  availabilityId: string;
   status: BookingStatus;
   totalAmount: number;
   note: string | null;

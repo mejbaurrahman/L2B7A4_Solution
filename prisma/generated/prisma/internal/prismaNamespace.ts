@@ -1063,6 +1063,7 @@ export const BookingScalarFieldEnum = {
   bookingDate: 'bookingDate',
   status: 'status',
   totalAmount: 'totalAmount',
+  availabilityId: 'availabilityId',
   note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
