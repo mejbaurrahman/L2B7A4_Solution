@@ -7,7 +7,13 @@ import { Role } from "../../../prisma/generated/prisma/enums";
 const router = express.Router();
 
 router.post("/create", auth(Role.CUSTOMER), paymentController.createPayment);
-router.post("/confirm", paymentController.confirmPayment);
+router.post(
+  "/confirm",
+  express.raw({
+    type: "application/json",
+  }),
+  paymentController.confirmPayment,
+);
 
 router.get("/", auth(Role.CUSTOMER), paymentController.getPayments);
 
