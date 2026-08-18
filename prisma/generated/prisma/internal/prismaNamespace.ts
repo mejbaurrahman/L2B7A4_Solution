@@ -1061,7 +1061,6 @@ export const BookingScalarFieldEnum = {
   technicianId: 'technicianId',
   serviceId: 'serviceId',
   bookingDate: 'bookingDate',
-  stripeCurtomerId: 'stripeCurtomerId',
   status: 'status',
   totalAmount: 'totalAmount',
   availabilityId: 'availabilityId',

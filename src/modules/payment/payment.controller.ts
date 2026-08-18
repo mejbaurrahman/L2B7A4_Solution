@@ -31,11 +31,6 @@ const createPayment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-/**
- * POST /api/payments/confirm
- *
- * Stripe webhook
- */
 const confirmPayment = catchAsync(async (req: Request, res: Response) => {
   const signature = req.headers["stripe-signature"];
 

@@ -14,6 +14,8 @@ import { reviewRoute } from "./modules/reviews/review.route";
 
 import { paymentController } from "./modules/payment/payment.controller";
 import { paymentRoute } from "./modules/payment/payment.route";
+import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { notFound } from "./middlewares/notFound";
 
 const app: Application = express();
 
@@ -29,7 +31,6 @@ app.post(
   express.raw({
     type: "application/json",
   }),
-  paymentController.confirmPayment,
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,5 +49,19 @@ app.use("/api/payments/", paymentRoute);
 app.get("/", (req, res) => {
   res.send("Server is running");
 });
+
+app.use(notFound);
+
+// app.use((err : any, req : Request, res : Response, next : NextFunction) => {
+//     console.log(err);
+//     res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+//         success: false,
+//         statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+//         message: err.message,
+//         error: err.stack
+//     })
+// })
+
+app.use(globalErrorHandler);
 
 export default app;

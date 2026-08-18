@@ -39,12 +39,12 @@ const createPayment = async (userId: string, payload: ICreatePayment) => {
     line_items: [
       {
         price_data: {
-          currency: "bdt",
+          currency: "BDT",
 
           product_data: {
             name: booking.service.title,
           },
-          unit_amount: Math.round(booking.totalAmount),
+          unit_amount: Math.round(booking.totalAmount * 50), // Convert to cents
         },
 
         quantity: 1,
@@ -108,10 +108,6 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
     if (!bookingId) {
       throw new Error("Booking ID not found in Stripe metadata");
     }
-
-    /**
-     * Find our local payment
-     */
     const payment = await prisma.payment.findUnique({
       where: {
         bookingId,
@@ -122,12 +118,6 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
       throw new Error("Payment record not found");
     }
 
-    /**
-     * Prevent duplicate processing.
-     *
-     * Stripe can send webhook events
-     * more than once.
-     */
     if (payment.status === "COMPLETED") {
       return {
         received: true,
@@ -135,14 +125,8 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
       };
     }
 
-    /**
-     * Get PaymentIntent ID
-     */
     const paymentIntent = session.payment_intent;
 
-    /**
-     * Update payment
-     */
     await prisma.payment.update({
       where: {
         bookingId: bookingId,
@@ -162,14 +146,41 @@ const confirmPayment = async (rawBody: Buffer, signature: string) => {
     });
   }
 
+  if (event.type === "checkout.session.expired") {
+    const session = event.data.object as Stripe.Checkout.Session;
+    const bookingId = session.metadata?.bookingId;
+
+    if (!bookingId) {
+      throw new Error("Booking ID not found in Stripe metadata");
+    }
+    const payment = await prisma.payment.findUnique({
+      where: {
+        bookingId,
+      },
+    });
+    if (!payment) {
+      throw new Error("Payment record not found");
+    }
+    if (payment.status === "COMPLETED") {
+      return {
+        received: true,
+        message: "Payment already completed",
+      };
+    }
+    await prisma.payment.update({
+      where: {
+        bookingId: bookingId,
+      },
+      data: {
+        status: "FAILED",
+      },
+    });
+  }
   return {
     received: true,
   };
 };
 
-/**
- * Get logged-in customer's payment history
- */
 const getPayments = async (userId: string) => {
   const payments = await prisma.payment.findMany({
     where: {
@@ -205,18 +216,10 @@ const getPayments = async (userId: string) => {
   return payments;
 };
 
-/**
- * Get one payment
- */
 const getPaymentById = async (userId: string, paymentId: string) => {
   const payment = await prisma.payment.findFirst({
     where: {
       id: paymentId,
-
-      /**
-       * Make sure payment belongs
-       * to logged-in customer.
-       */
       booking: {
         customerId: userId,
       },

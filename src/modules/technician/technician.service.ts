@@ -104,7 +104,6 @@ const updateTechnicianBookingStatus = async (
   bookingId: string,
   status: BookingStatus,
 ) => {
-  console.log("Updating booking status:", bookingId, status);
   const booking = await prisma.booking.findUnique({
     where: {
       id: bookingId,

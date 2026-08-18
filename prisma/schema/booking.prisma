@@ -10,7 +10,7 @@ model Booking {
 
   bookingDate DateTime
   
-  stripeCurtomerId String?
+ 
 
   status BookingStatus @default(REQUESTED)
 
