@@ -39,14 +39,6 @@ export const BookingStatus = {
 export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 
-export const PaymentProvider = {
-  STRIPE: 'STRIPE',
-  SSLCOMMERZ: 'SSLCOMMERZ'
-} as const
-
-export type PaymentProvider = (typeof PaymentProvider)[keyof typeof PaymentProvider]
-
-
 export const PaymentStatus = {
   PENDING: 'PENDING',
   COMPLETED: 'COMPLETED',

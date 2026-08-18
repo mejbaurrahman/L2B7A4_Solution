@@ -12,6 +12,9 @@ import { techniciansRoute } from "./modules/technicians/technicians.route";
 import { technicianRoute } from "./modules/technician/technician.route";
 import { reviewRoute } from "./modules/reviews/review.route";
 
+import { paymentController } from "./modules/payment/payment.controller";
+import { paymentRoute } from "./modules/payment/payment.route";
+
 const app: Application = express();
 
 app.use(
@@ -21,6 +24,13 @@ app.use(
   }),
 );
 
+app.post(
+  "/api/payments/confirm",
+  express.raw({
+    type: "application/json",
+  }),
+  paymentController.confirmPayment,
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -33,6 +43,7 @@ app.use("/api/categories/", categoryRoute);
 app.use("/api/technicians/", techniciansRoute);
 app.use("/api/technician/", technicianRoute);
 app.use("/api/reviews/", reviewRoute);
+app.use("/api/payments/", paymentRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is running");

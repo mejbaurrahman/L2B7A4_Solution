@@ -168,6 +168,10 @@ const refreshToken = async (refreshToken: string) => {
 const getMyProfileFromDB = async (id: string) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: { id },
+    include: {
+      technicianProfile: true,
+      customerBookings: true,
+    },
     omit: {
       password: true,
     },
