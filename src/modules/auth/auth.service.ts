@@ -136,7 +136,6 @@ const refreshToken = async (refreshToken: string) => {
     throw new Error(verifiedRefreshToken.error);
   }
 
-  console.log(verifiedRefreshToken);
   const { id } = verifiedRefreshToken.data as JwtPayload;
 
   const user = await prisma.user.findUniqueOrThrow({
