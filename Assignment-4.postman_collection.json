@@ -1,0 +1,762 @@
+{
+  "info": {
+    "_postman_id": "63a3c56f-ceef-488d-9d56-d794ce63a3a3",
+    "name": "Assignment-4",
+    "description": "# FixItNow API\n\nFixItNow is a home services marketplace API where customers  \ncan browse services, book technicians, make payments and  \nleave reviews.\n\n## Base\n\n[https://assignment-4-alpha-six.vercel.app/](https://assignment-4-alpha-six.vercel.app/)\n\n## Authentication\n\nMost endpoints require JWT authentication.\n\nAdd the following header:\n\nAuthorization: Bearer\n\n## User Roles\n\n- CUSTOMER\n    \n- TECHNICIAN\n    \n- ADMIN\n    \n\n## Payment\n\nPayments are processed using Stripe Checkout.  \nPayment is available only after a technician accepts a booking.\n\n## Main Modules\n\n- Authentication\n    \n- Users\n    \n- Categories\n    \n- Services\n    \n- Technicians\n    \n- Bookings\n    \n- Reviews\n    \n- Payments",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31351834",
+    "_collection_link": "https://go.postman.co/collection/31351834-63a3c56f-ceef-488d-9d56-d794ce63a3a3?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"sakil2\",\r\n  \"email\": \"sakil2@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone\": \"01800000000\",\r\n  \"city\": \"Dhaka\",\r\n  \"role\": \"TECHNICIAN\",\r\n  \"bio\": \"Ac Mechanic\",\r\n  \"experience\": 5,\r\n  \"hourlyRate\": 500,\r\n  \"location\": \"Dhaka\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/auth/register",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Creates a new user account.\n\nThe registration endpoint can be used to create users with different roles. For a technician, technician-specific information such as experience, hourly rate and location can also be provided.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `name` | String | Yes | User's name |\n| `email` | String | Yes | Unique email address |\n| `password` | String | Yes | User password |\n| `phone` | String | No | Phone number |\n| `city` | String | No | User's city |\n| `role` | Enum | No | `CUSTOMER`, `TECHNICIAN`, or `ADMIN` |\n| `bio` | String | No | Technician biography |\n| `experience` | Number | No | Technician experience |\n| `hourlyRate` | Number | No | Technician hourly rate |\n| `location` | String | No | Technician location |"
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"abdurrahim@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Authenticates an existing user and returns a JWT token to be used for subsequent authorized requests.\n\nSubmit the user's registered email and password in the request body. On success, a Bearer token is returned which must be included in the `Authorization` header for all protected endpoints.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `email` | String | Yes | Registered email address |\n| `password` | String | Yes | Account password |"
+          },
+          "response": []
+        },
+        {
+          "name": "my profile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/auth/me",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Handles user authentication for the FixItNow platform. Contains endpoints for registering a new account, logging in to receive a JWT token, and retrieving the authenticated user's profile. All roles (CUSTOMER, TECHNICIAN, ADMIN) use these endpoints to access the platform."
+    },
+    {
+      "name": "admin",
+      "item": [
+        {
+          "name": "add category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Electric\",\r\n  \"description\": \"Electric home work\",\r\n  \"icon\": \"Electricity2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/admin/categories",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "categories"
+              ]
+            },
+            "description": "Creates a new service category on the platform.\n\nAllows an admin to add a new category that technicians can associate their services with. Each category requires a name, a short description, and an icon identifier. Requires JWT authentication with the `ADMIN` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `name` | String | Yes | Category name (e.g. \"Carpentry\") |\n| `description` | String | Yes | Brief description of the category |\n| `icon` | String | Yes | Icon identifier for the category |"
+          },
+          "response": []
+        },
+        {
+          "name": "get all catgories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/admin/categories",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/admin/users",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update a user status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"UNBAN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/admin/users/46f7c284-bded-45e9-a413-7e082a0523bc",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "46f7c284-bded-45e9-a413-7e082a0523bc"
+              ]
+            },
+            "description": "Updates the account status of a specific user by their ID.\n\nAllows an admin to activate, deactivate, or ban a user account. The target user's ID is provided as a path parameter. Requires JWT authentication with the `ADMIN` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `status` | Enum | Yes | New account status: `ACTIVE`, `INACTIVE`, or `BAN` |"
+          },
+          "response": []
+        },
+        {
+          "name": "get all bookings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/admin/bookings",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "bookings"
+              ]
+            },
+            "description": "Retrieves a complete list of all bookings across the platform.\n\nReturns all bookings made by any customer, including booking details, assigned technician, service, status, and payment information. This is an admin-only endpoint. Requires JWT authentication with the `ADMIN` role."
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains administrative endpoints restricted to users with the ADMIN role. Provides full platform oversight including managing user accounts and statuses, creating and listing service categories, and viewing all bookings across the system. Requires a valid JWT token with admin privileges."
+    },
+    {
+      "name": "service",
+      "item": [
+        {
+          "name": "add service by technician",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \r\n    \"title\": \"AC Repair\",\r\n    \"description\": \"AC Repair and troubleshooting.\",\r\n    \"price\": 2000,\r\n    \"duration\": 180,\r\n    \"categoryId\": \"b33ccd5f-3136-48d8-a787-20f3a2ce7ded\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/services",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "services"
+              ]
+            },
+            "description": "use technician auth"
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains the endpoint for technicians to create and publish new services on the platform. A technician must be authenticated to add a service, which is then associated with a category and made available for customers to browse and book."
+    },
+    {
+      "name": "technician",
+      "item": [
+        {
+          "name": "update availability",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n  \"startTime\": \"2026-08-26T09:00:00.000Z\",\r\n  \"endTime\": \"2026-08-26T10:00:00.000Z\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technician/availability",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "availability"
+              ]
+            },
+            "description": "Sets or updates the availability window for the currently authenticated technician.\n\nAllows a technician to define a time slot during which they are available to accept bookings. The start and end times must be provided in ISO 8601 format. Requires JWT authentication with the `TECHNICIAN` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `startTime` | DateTime | Yes | Availability start time (ISO 8601) |\n| `endTime` | DateTime | Yes | Availability end time (ISO 8601) |"
+          },
+          "response": []
+        },
+        {
+          "name": "update profile",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \r\n  \"bio\": \"Professional Electrician with experience\",\r\n  \"experience\": 7,\r\n  \"hourlyRate\": 400,\r\n  \"location\": \"Magura\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technician/profile",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "profile"
+              ]
+            },
+            "description": "Updates the profile information of the currently authenticated technician.\n\nAllows a technician to update their professional details such as bio, years of experience, hourly rate, and location. Requires JWT authentication with the `TECHNICIAN` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `bio` | String | No | Short professional biography |\n| `experience` | Number | No | Years of experience |\n| `hourlyRate` | Number | No | Hourly service rate |\n| `location` | String | No | Technician's service location |"
+          },
+          "response": []
+        },
+        {
+          "name": "get technician bookings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technician/bookings",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "bookings"
+              ]
+            },
+            "description": "Retrieves all bookings assigned to the currently authenticated technician.\n\nReturns a list of bookings that have been made for the logged-in technician's services, including customer details, booking date, service info, and current status. Requires JWT authentication with the `TECHNICIAN` role."
+          },
+          "response": []
+        },
+        {
+          "name": "booking status update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"ACCEPTED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technician/bookings/7062f924-1174-4f90-a950-51f46258cf52",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technician",
+                "bookings",
+                "7062f924-1174-4f90-a950-51f46258cf52"
+              ]
+            },
+            "description": "Updates the status of a specific booking by its ID.\n\nAllows a technician to accept or reject a booking request. The booking ID is provided as a path parameter. Once a booking is accepted, the customer becomes eligible to initiate a payment. Requires JWT authentication with the `TECHNICIAN` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `status` | Enum | Yes | New booking status: `ACCEPTED` or `REJECTED` |"
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains endpoints for the authenticated technician to manage their own account and workload. Includes updating their profile details, setting availability windows, viewing their assigned bookings, and accepting or rejecting booking requests. All endpoints require JWT authentication with the TECHNICIAN role."
+    },
+    {
+      "name": "catetory",
+      "item": [
+        {
+          "name": "get all categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/categories",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains the public endpoint for retrieving all available service categories. Categories are used to organise services on the platform and help customers filter and discover the type of service they need. No authentication is required to access this endpoint."
+    },
+    {
+      "name": "technicians",
+      "item": [
+        {
+          "name": "get all technicians",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technicians",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technicians"
+              ]
+            },
+            "description": "Retrieves a list of all registered technicians on the platform.\n\nReturns technician profiles including their name, bio, experience, hourly rate, location, and availability status. This endpoint is publicly accessible and can be used by customers to browse and compare technicians before booking a service."
+          },
+          "response": []
+        },
+        {
+          "name": "get single technician",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/technicians/91388a02-9a14-417d-8edd-0a4fa851458b",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "technicians",
+                "91388a02-9a14-417d-8edd-0a4fa851458b"
+              ]
+            },
+            "description": "use userid for single search as user table handle all users(customer, technician, admin)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains publicly accessible endpoints for browsing technicians on the platform. Customers can retrieve a full list of registered technicians or look up a specific technician by their user ID to view their profile, experience, hourly rate, and availability before making a booking."
+    },
+    {
+      "name": "booking",
+      "item": [
+        {
+          "name": "create booking",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"technicianId\": \"0bf9521d-bbf6-4fac-9e78-f1eab0ac84c3\",\r\n    \"serviceId\": \"757f3a66-8ccd-4d57-9c8c-aa2c00a2e97b\",\r\n    \"bookingDate\": \"2026-08-20T10:00:00.000Z\",\r\n    \"availabilityId\":\"452a016e-96d1-432e-a64f-bb8829f25a00\", // slot id\r\n    \"totalAmount\": 1500,\r\n    \"note\": \"Fan Repair\"\r\n   \r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/bookings",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ]
+            },
+            "description": "Creates a new service booking for the authenticated customer.\n\nAllows a customer to book a technician for a specific service by providing the technician ID, service ID, preferred booking date, an availability slot ID, total amount, and an optional note. Requires JWT authentication with the `CUSTOMER` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `technicianId` | UUID | Yes | ID of the technician to book |\n| `serviceId` | UUID | Yes | ID of the service being booked |\n| `bookingDate` | DateTime | Yes | Desired booking date and time (ISO 8601) |\n| `availabilityId` | UUID | Yes | ID of the technician's availability slot |\n| `totalAmount` | Number | Yes | Total cost of the booking |\n| `note` | String | No | Optional note or description of the issue |"
+          },
+          "response": []
+        },
+        {
+          "name": "get users all bookings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"technicianId\": \"765fe9ca-08fa-4792-8a78-bfb970ad306e\",\r\n    \"serviceId\": \"e679188f-d2eb-4bd3-8c5e-e50d3fa5138b\",\r\n    \"bookingDate\": \"2026-08-20\",\r\n    \"startTime\": \"10:00\",\r\n    \"address\": \"House 25, Road 5, Dhanmondi, Dhaka\",\r\n    \"totalAmount\": 1005.56,\r\n    \"notes\": \"Kitchen sink is leaking.\"\r\n   \r\n  }"
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/bookings",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ]
+            },
+            "description": "Retrieves all bookings associated with the currently authenticated user.\n\nReturns a list of bookings made by the logged-in customer, including booking date, status, service details, and assigned technician. Requires a valid JWT token with the `CUSTOMER` role."
+          },
+          "response": []
+        },
+        {
+          "name": "get details of a user bookings",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"technicianId\": \"765fe9ca-08fa-4792-8a78-bfb970ad306e\",\r\n    \"serviceId\": \"e679188f-d2eb-4bd3-8c5e-e50d3fa5138b\",\r\n    \"bookingDate\": \"2026-08-20\",\r\n    \"startTime\": \"10:00\",\r\n    \"address\": \"House 25, Road 5, Dhanmondi, Dhaka\",\r\n    \"totalAmount\": 1005.56,\r\n    \"notes\": \"Kitchen sink is leaking.\"\r\n   \r\n  }"
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/bookings/e3dc90a5-7740-426c-8660-d420077c8c21",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "e3dc90a5-7740-426c-8660-d420077c8c21"
+              ]
+            },
+            "description": "Retrieves the full details of a specific booking by its ID.\n\nReturns comprehensive information about a single booking, including the service, technician, booking date, status, address, and any notes. The booking ID must be provided as a path parameter. Requires JWT authentication."
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains endpoints for customers to manage their bookings. Allows an authenticated customer to create a new booking by selecting a technician, service, and availability slot, as well as retrieve a list of all their bookings or view the full details of a specific booking. Requires JWT authentication with the CUSTOMER role."
+    },
+    {
+      "name": "reviews",
+      "item": [
+        {
+          "name": "create review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"bookingId\": \"e3dc90a5-7740-426c-8660-d420077c8c21\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Excellent service. The technician was very professional and completed the work perfectly.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/reviews",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Submits a review for a completed booking.\n\nAllows an authenticated customer to leave a rating and comment for a technician after a booking has been completed. The booking ID must reference a booking belonging to the authenticated user. Requires JWT authentication with the `CUSTOMER` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `bookingId` | UUID | Yes | ID of the completed booking |\n| `rating` | Number | Yes | Rating score (e.g. 1–5) |\n| `comment` | String | No | Optional written feedback |"
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains the endpoint for customers to submit reviews after a service has been completed. A review includes a star rating and an optional written comment tied to a specific booking. Requires JWT authentication with the CUSTOMER role."
+    },
+    {
+      "name": "services",
+      "item": [
+        {
+          "name": "get all services",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": " {\r\n    \r\n    \"title\": \"Home Electrical Wiring\",\r\n    \"description\": \"Electrical wiring, switch installation, socket installation and troubleshooting.\",\r\n    \"price\": 2500,\r\n    \"duration\": 180,\r\n    \"categoryId\": \"a9d6b5f5-031a-4366-9298-3803bed6685d\"\r\n  }"
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/services",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "services"
+              ]
+            },
+            "description": "Retrieves a list of all services available on the platform.\n\nReturns all services that have been created by technicians, including details such as title, description, price, duration, and associated category. This endpoint can be used by customers to browse available services before making a booking."
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains the public endpoint for retrieving all services available on the platform. Returns a full list of services created by technicians, including title, description, price, duration, and category. Customers can use this to browse and compare services before creating a booking."
+    },
+    {
+      "name": "payment",
+      "item": [
+        {
+          "name": "payment create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"bookingId\": \"7062f924-1174-4f90-a950-51f46258cf52\"    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/payments/create",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "create"
+              ]
+            },
+            "description": "Initiates a Stripe Checkout payment session for an accepted booking.\n\nCreates a payment session for the specified booking. The booking must have been accepted by the technician before a payment can be initiated. Returns a Stripe Checkout URL that the customer can use to complete the payment. Requires JWT authentication with the `CUSTOMER` role.\n\n| Field | Type | Required | Description |\n| --- | --- | --- | --- |\n| `bookingId` | UUID | Yes | ID of the accepted booking to pay for |"
+          },
+          "response": []
+        },
+        {
+          "name": "get payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/payments/",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payments",
+                ""
+              ]
+            },
+            "description": "Retrieves all payment records associated with the authenticated user.\n\nReturns a list of payments made by the logged-in customer, including payment status, amount, associated booking, and Stripe transaction details. Requires JWT authentication."
+          },
+          "response": []
+        },
+        {
+          "name": "payment get by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://assignment-4-alpha-six.vercel.app/api/payments/6eab8029-2e24-432f-865b-7aa985410f24",
+              "protocol": "https",
+              "host": [
+                "assignment-4-alpha-six",
+                "vercel",
+                "app"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "6eab8029-2e24-432f-865b-7aa985410f24"
+              ]
+            },
+            "description": "Retrieves the details of a specific payment by its ID.\n\nReturns full payment information for a single transaction, including the booking reference, amount, payment status, and Stripe session details. The payment ID is provided as a path parameter. Requires JWT authentication."
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains endpoints for managing payments on the platform. Allows an authenticated customer to initiate a Stripe Checkout session for an accepted booking, retrieve their full payment history, and look up the details of a specific payment by ID. Payment can only be initiated after a technician has accepted the booking."
+    },
+    {
+      "name": "test stripe web hook",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
